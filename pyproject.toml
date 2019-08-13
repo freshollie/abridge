@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "poshsplice"
+version = "0.1.0"
+description = "Splice similar frames from videos"
+authors = ["Oliver Bell <freshollie@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+moviepy = "^1.0"
+numpy = "^1.17"
+enlighten = "^1.3"
+proglog = "^0.1.9"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^18.3-alpha.0", allows-prereleases = true}
+pylint = "^2.3"
+rope = "^0.14.0"
+isort = "^4.3"
+mypy = "^0.720.0"
+pytest = "^5.0"
+pytest-cov = "^2.7"
+pytest-mock = "^1.10"
+pytest-mypy = "^0.3.3"
+pre-commit = "^1.18"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+poshsplice='poshsplice.cli:main'
