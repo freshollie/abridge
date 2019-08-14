@@ -1,0 +1,5 @@
+[MESSAGES CONTROL]
+disable=bad-continuation, line-too-long, 
+    missing-docstring, too-few-public-methods,
+    no-self-use, redefined-outer-name, no-member, 
+    protected-access

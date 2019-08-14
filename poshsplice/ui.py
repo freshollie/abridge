@@ -5,7 +5,7 @@ of processing
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional, overload
 
 import enlighten
 from proglog import ProgressBarLogger
@@ -51,10 +51,10 @@ class ProgressBar(ProgressBarLogger):
         elif self._bar:
             self._bar.update()
 
-    def callback(self, **kwargs: Dict[str, str]) -> None:
-        if kwargs:
-            if "message" in kwargs:
-                print(f"{self._desc} - info: {kwargs['message']}")
+    def callback(self, **kwargs: str) -> None:
+        message = kwargs.get("message", None)
+        if message:
+            print(f"{self._desc} - info: {message}")
 
     def _close(self) -> None:
         if self._bar:
