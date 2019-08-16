@@ -1,3 +1,3 @@
 # abridge
 
-Automatically splice similar frames from videos
+Automatically cutout similar frames from videos
