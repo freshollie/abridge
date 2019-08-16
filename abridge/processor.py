@@ -1,5 +1,5 @@
 """
-poshsplice - an automated video splicing tool
+abridge - an automated video splicing tool
 """
 
 import ntpath

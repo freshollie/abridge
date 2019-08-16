@@ -5,7 +5,7 @@ import enlighten
 import pytest
 from pytest_mock import MockFixture
 
-from poshsplice import ui
+from abridge import ui
 
 
 def mock_update_progress(
