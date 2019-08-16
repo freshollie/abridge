@@ -13,36 +13,40 @@ from . import ui
 
 
 def _find_voids(
-    clip: VideoFileClip, diff_threshold: int, repetition_threshold: int
-) -> List[Tuple[int, int]]:
-    cuts: List[Tuple[int, int]] = []
-    last_frame = None
-    last_frame_t = 0
+    clip: VideoFileClip, diff_threshold: float, repetition_threshold: int
+) -> List[Tuple[float, float]]:
+    cuts: List[Tuple[float, float]] = []
+    last_used_frame = None
+    last_used_frame_t = 0
 
     num_similar = 0
 
     with ui.ProgressBar(f"{clip.filename} - Processing frames", 1) as progress:
         for frame_t, frame in clip.iter_frames(with_times=True, logger=progress):
-            if last_frame is None:
-                last_frame = frame
-                last_frame_t = frame_t
+            if last_used_frame is None:
+                last_used_frame = frame
+                last_used_frame_t = frame_t
                 continue
 
-            diff = np.mean((frame - last_frame) ** 2)
+            diff = np.mean((frame - last_used_frame) ** 2)
 
-            if (
-                diff < diff_threshold
-            ):  # there are no signficant differences in the frames
+            if diff < diff_threshold:
+                # there are no signficant differences between this frame and the
+                # last used frame
+
                 num_similar += (
                     1  # Count the number of frames in a row which are similar
                 )
 
-            else:  # Something changed
+            else:
+                # there was a significant difference between the frames
                 if num_similar > repetition_threshold:
-                    cuts.append((last_frame_t, frame_t))
+                    # there were enough differences in a row
+                    cuts.append((last_used_frame_t, frame_t))
 
-                last_frame = frame
-                last_frame_t = frame_t
+                # take note of this frame, and use it as reference for comparison
+                last_used_frame = frame
+                last_used_frame_t = frame_t
                 num_similar = 0
 
     return cuts
@@ -51,7 +55,7 @@ def _find_voids(
 def splice_clip(
     path: str,
     out_dir: str = "processed",
-    diff_threshold: int = 20,
+    diff_threshold: float = 20,
     repetition_threshold: int = 5,
 ) -> None:
     """
@@ -61,7 +65,7 @@ def splice_clip(
     clip = VideoFileClip(path)
     clipname = ntpath.basename(path)
 
-    cuts: List[Tuple[int, int]] = _find_voids(
+    cuts: List[Tuple[float, float]] = _find_voids(
         clip, diff_threshold, repetition_threshold
     )
 

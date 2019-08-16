@@ -5,7 +5,7 @@ of processing
 
 from __future__ import annotations
 
-from typing import Any, Optional, overload
+from typing import Any, Optional
 
 import enlighten
 from proglog import ProgressBarLogger

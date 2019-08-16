@@ -1,3 +1,3 @@
 # poshsplice
 
-Splice similar frames from videos.
+Automatically splice similar frames from videos
