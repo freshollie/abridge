@@ -1,0 +1,7 @@
+old/*.MP4
+processed/*.MP4
+htmlcov
+dist
+.mypy_cache
+.pytest_cache
+__pycache__

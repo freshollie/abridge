@@ -20,7 +20,7 @@ def _shutdown(executor: ThreadPoolExecutor) -> None:
     """
 
     executor._threads.clear()  # type: ignore
-    concurrent.futures.thread._threads_queues.clear()
+    concurrent.futures.thread._threads_queues.clear()  # type: ignore
 
 
 def _runner(args: argparse.Namespace) -> None:
@@ -49,7 +49,6 @@ def _runner(args: argparse.Namespace) -> None:
     )
 
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
-
         futures = [
             executor.submit(
                 processor.abridge_clip,

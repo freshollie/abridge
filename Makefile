@@ -1,5 +1,5 @@
 test:
-	poetry run pytest
+	poetry run mypy abridge tests && poetry run pytest
 
 format:
 	poetry run isort --apply && poetry run black abridge tests

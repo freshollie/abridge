@@ -1,0 +1,79 @@
+image: python:3.7.2
+
+stages:
+  - test
+  - build
+  - deploy
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+    - ~/.cache/pip/
+
+before_script:
+  - pip install poetry
+  - poetry install
+
+lint:
+  stage: test
+  script:
+    - make lint
+
+test:
+  stage: test
+  script:
+    - make test
+  artifacts:
+    paths:
+      - htmlcov/
+
+publish-coverage:
+  stage: deploy
+  dependencies:
+    - test
+  script:
+    - mv htmlcov/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+
+build:
+  stage: build
+  dependencies:
+    - test
+  script:
+    - make build
+  artifacts:
+    paths:
+      - sdist
+
+publish:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - poetry publish --username ${PYPI_USERNAME} --password ${PYPI_PASSWORD}
+  only:
+    - tags
+
+build-docker:
+  stage: deploy
+  image: docker:latest
+  only:
+    - tags
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: "overlay"
+  before_script:
+    - docker version
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+  script:
+    - "docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME} --pull ."
+    - "docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}"
+  after_script:
+    - docker logout
