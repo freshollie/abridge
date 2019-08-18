@@ -4,7 +4,10 @@ WORKDIR /build
 RUN pip install poetry
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-dev
-RUN make build
+COPY README.md README.md
+COPY abridge abridge
+
+RUN poetry build
 
 FROM python:3.7.3
 LABEL maintainer="Oliver Bell <freshollie@gmail.com>"
