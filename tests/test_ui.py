@@ -50,14 +50,11 @@ class TestProgressBar:
         mock_update_progress(progress_bar, 500)
         mock_update_progress(progress_bar, 300)
 
-        # intitalises
-        mock_manager.counter.assert_has_calls(
-            [
-                mock.call(desc="test", leave=False, total=500, unit="frames"),
-                mock.call().close(clear=True),
-                mock.call(desc="test", leave=False, total=300, unit="frames"),
-            ]
-        )
+        assert mock_manager.counter.mock_calls == [
+            mock.call(desc="test", leave=False, total=500, unit="frames"),
+            mock.ANY,
+            mock.call(desc="test", leave=False, total=300, unit="frames"),
+        ]
 
     def test_callback_outputs_messages(
         self, mock_manager: mock.MagicMock, mocker: MockFixture

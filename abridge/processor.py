@@ -7,13 +7,13 @@ import os
 from typing import List, Tuple
 
 import numpy as np
-from moviepy.editor import VideoFileClip
+from moviepy.editor import VideoFileClip, VideoClip
 
 from . import ui
 
 
 def _find_voids(
-    clip: VideoFileClip, diff_threshold: float, repetition_threshold: int
+    clip: VideoClip, diff_threshold: float, repetition_threshold: int
 ) -> List[Tuple[float, float]]:
     cuts: List[Tuple[float, float]] = []
     last_used_frame = None
@@ -52,7 +52,13 @@ def _find_voids(
     return cuts
 
 
-def splice_clip(
+def _apply_cuts(clip: VideoClip, cuts: List[Tuple[float, float]]) -> VideoClip:
+    for start, end in reversed(cuts):
+        clip = clip.cutout(start, end)
+    return clip
+
+
+def abridge_clip(
     path: str,
     out_dir: str = "processed",
     diff_threshold: float = 20,
@@ -72,8 +78,8 @@ def splice_clip(
     print(f"{clipname} - Removing empty sections")
 
     before_time = clip.duration
-    for start, end in reversed(cuts):
-        clip = clip.cutout(start, end)
+
+    clip = _apply_cuts(clip, cuts)
 
     after_time = clip.duration
     print(
@@ -81,6 +87,6 @@ def splice_clip(
     )
 
     with ui.ProgressBar(f"{clipname} - Rendering", 1) as progress:
-        clip.write_videofile(
-            os.path.join(out_dir, clipname), fps=clip.fps, logger=progress
-        )
+        clip.write_videofile(os.path.join(out_dir, clipname), logger=progress)
+
+    clip.close()

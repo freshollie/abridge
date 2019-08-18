@@ -1,5 +1,5 @@
 """
-CLI module for poshsplice
+CLI module for abridge
 """
 
 import argparse
@@ -15,6 +15,10 @@ from . import processor, ui
 
 
 def _shutdown(executor: ThreadPoolExecutor) -> None:
+    """
+    Force shutdown the given threadpool
+    """
+
     executor._threads.clear()  # type: ignore
     concurrent.futures.thread._threads_queues.clear()
 
@@ -48,7 +52,7 @@ def _runner(args: argparse.Namespace) -> None:
 
         futures = [
             executor.submit(
-                processor.splice_clip,
+                processor.abridge_clip,
                 clip,
                 args.out_dir,
                 args.diff_threshold,

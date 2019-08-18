@@ -2,4 +2,4 @@
 abridge public methods
 """
 
-from .processor import splice_clip
+from .processor import abridge_clip
