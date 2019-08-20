@@ -13,9 +13,10 @@ variables:
 cache:
   paths:
     - .cache/
+    - .apt-cache/
 
 before_script:
-  - apt update -y && apt install ffmpeg -y
+  - apt update -y && apt -o dir::cache::archives=".apt-cache" install ffmpeg -y
   - pip install poetry
   - poetry install
 
