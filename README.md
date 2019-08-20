@@ -3,7 +3,7 @@
 [![pipeline status](https://gitlab.com/freshollie/abridge/badges/master/pipeline.svg)](https://gitlab.com/freshollie/abridge/commits/master)
 [![coverage report](https://gitlab.com/freshollie/abridge/badges/master/coverage.svg)](http://freshollie.gitlab.io/abridge)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
-[![PyPI version](https://badge.fury.io/py/abridge.svg)](https://badge.fury.io/py/abridge)
+[![PyPI version](https://img.shields.io/pypi/v/abridge)](https://badge.fury.io/py/abridge)
 
 Effortlessly shorten videos.
 

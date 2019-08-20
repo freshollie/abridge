@@ -53,9 +53,9 @@ build:
     - make build
   artifacts:
     paths:
-      - sdist
+      - dist
 
-publish:
+publish-pypi:
   stage: deploy
   dependencies:
     - build
@@ -64,7 +64,7 @@ publish:
   only:
     - tags
 
-build-docker:
+publish-docker:
   stage: deploy
   image: docker:latest
   only:
