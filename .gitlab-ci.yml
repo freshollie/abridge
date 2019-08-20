@@ -13,11 +13,13 @@ variables:
 cache:
   paths:
     - .cache/
+    - .venv/
     - .apt-cache/
 
 before_script:
   - apt-get update -y && apt-get -o dir::cache::archives=".apt-cache" install ffmpeg -y
   - pip install poetry
+  - poetry config settings.virtualenvs.in-project true
   - poetry install
 
 lint:
