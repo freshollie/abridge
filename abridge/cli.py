@@ -3,11 +3,10 @@ CLI module for abridge
 """
 
 import argparse
-import concurrent.futures.thread
 import glob
 import os
 import sys
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed, thread
 from typing import List
 
 from . import __name__ as module_name
@@ -19,8 +18,8 @@ def _shutdown(executor: ThreadPoolExecutor) -> None:
     Force shutdown the given threadpool
     """
 
-    executor._threads.clear()  # type: ignore
-    concurrent.futures.thread._threads_queues.clear()  # type: ignore
+    executor._threads.clear()  # type: ignore # pylint: disable=protected-access
+    thread._threads_queues.clear()  # type: ignore # pylint: disable=protected-access
 
 
 def _runner(args: argparse.Namespace) -> None:

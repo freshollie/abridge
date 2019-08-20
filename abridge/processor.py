@@ -7,7 +7,7 @@ import os
 from typing import List, Tuple
 
 import numpy as np
-from moviepy.editor import VideoFileClip, VideoClip
+from moviepy.editor import VideoClip, VideoFileClip
 
 from . import ui
 

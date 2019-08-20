@@ -1,4 +1,12 @@
 repos:
+  - repo: https://github.com/asottile/seed-isort-config
+    rev: v1.9.2
+    hooks:
+      - id: seed-isort-config
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: master # Use the revision sha / tag you want to point at
+    hooks:
+      - id: isort
   - repo: https://github.com/ambv/black
     rev: master
     hooks:

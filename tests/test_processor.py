@@ -1,14 +1,14 @@
 from __future__ import annotations
-from unittest.mock import MagicMock, NonCallableMagicMock, call, create_autospec, ANY
+
+import os
+from typing import List, Optional, Tuple
+from unittest.mock import ANY, MagicMock, NonCallableMagicMock
 
 import pytest
+from moviepy.editor import VideoFileClip
 from pytest_mock import MockFixture
 
-from abridge.processor import abridge_clip, _apply_cuts, _find_voids
-from moviepy.editor import VideoFileClip
-import os
-
-from typing import List, Tuple, Optional
+from abridge.processor import _apply_cuts, abridge_clip
 
 
 @pytest.fixture
@@ -95,9 +95,7 @@ class TestAbridgeClip:
     def test_writes_video_clip_with_cuts(
         self, mocker: MockFixture, mock_video_clip: MagicMock
     ) -> None:
-        mock_find_voids: MagicMock = mocker.patch(
-            "abridge.processor._find_voids", autospec=True
-        )
+        mocker.patch("abridge.processor._find_voids", autospec=True)
 
         mock_cut_video = NonCallableMagicMock(VideoFileClip)
         mock_cut_video.duration = 10

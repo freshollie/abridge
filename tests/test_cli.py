@@ -1,7 +1,7 @@
 import os
 import sys
 from concurrent.futures import Future, ThreadPoolExecutor
-from unittest.mock import MagicMock, call, create_autospec, seal
+from unittest.mock import MagicMock, call, create_autospec
 
 import pytest
 from pyfakefs.fake_filesystem import FakeFilesystem
@@ -214,9 +214,7 @@ class TestKeyboardInterrupt:
     def test_shutdown_pool_kills_threads(
         self, mock_threadpool: MagicMock, mocker: MockFixture
     ) -> None:
-        mock_concurrent_thread = mocker.patch(
-            "abridge.cli.concurrent.futures.thread", autospec=True
-        )
+        mock_concurrent_thread = mocker.patch("abridge.cli.thread", autospec=True)
         _shutdown(mock_threadpool)
         mock_threadpool._threads.clear.assert_called()
         mock_concurrent_thread._threads_queues.clear.assert_called()

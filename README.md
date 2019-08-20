@@ -1,5 +1,9 @@
 # abridge
 
+[![pipeline status](https://gitlab.com/freshollie/abridge/badges/master/pipeline.svg)](https://gitlab.com/freshollie/abridge/commits/master)
+[![coverage report](https://gitlab.com/freshollie/abridge/badges/master/coverage.svg)](http://freshollie.gitlab.io/abridge)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+
 Effortlessly shorten videos.
 
 ## About
@@ -77,6 +81,10 @@ Tests are written with `pytest` and can be run with `make test`
 
 `make format` will format code to required standards
 
-### License
+## TODO:
+
+- Test coverage on processor
+
+## License
 
 `MIT`
