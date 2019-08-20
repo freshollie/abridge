@@ -6,8 +6,7 @@ Effortlessly shorten videos.
 
 `abridge` can automatically shorten video files by removing parts from the video
 where not much happens. This is great for making timelapse videos more engaging
-and removes the need for manual editing to remove these dead spots
-from the videos.
+and removes the need for manual editing to cut these dead spots from the videos.
 
 ## Installation
 

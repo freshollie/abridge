@@ -12,7 +12,7 @@ cache:
     - ~/.cache/pip/
 
 before_script:
-  - apt install ffmpeg
+  - apt update -y && apt install ffmpeg
   - pip install poetry
   - poetry install
 
