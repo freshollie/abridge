@@ -78,7 +78,7 @@ def main() -> None:
     """
 
     parser = argparse.ArgumentParser(
-        module_name, description="An automatic clip splicer"
+        module_name, description="Effortlessly shorten videos"
     )
     parser.add_argument(
         "clips", metavar="clip", nargs="+", help="Clip to cut or glob group"
